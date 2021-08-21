@@ -5,6 +5,9 @@
         <label for="password-length" id="password-length" aria-hidden="true">
           Length
         </label>
+        <br />
+        <span>{{ passwordLength }}</span>
+        <!-- <input type="text" v-model="passwordLength" /> -->
         <div class="password-length">
           <span>{{ minLength }}</span>
           <input
@@ -15,36 +18,41 @@
             min="0"
             max="100"
             style="--track-fill: 30%"
+            @change="pwLengthHandler"
           />
           <span>{{ maxLength }}</span>
         </div>
-        <div class="fieldset-item">
-          <input
-            type="checkbox"
-            checked
-            id="text-notifications"
-            name="text-notifications"
-          />
-          <div class="input-stack">
-            <label for="text-notifications">
-              <h3>Include Symbols</h3>
-              <small
-                >Get notified about all text messages sent to your device</small
-              >
-            </label>
-          </div>
-        </div>
-        <br />
-        <input type="text" v-model="passwordLength" />
+      </div>
+    </div>
+    <div class="fieldset-item">
+      <input
+        type="checkbox"
+        checked
+        id="pref-symbols"
+        name="pref-symbols"
+        v-model="preferences.symbols"
+        @click="setPreference('pref-symbols', $event.target.checked)"
+      />
+      <div class="input-stack">
+        <label for="pref-symbols">
+          <h3>Include Symbols</h3>
+        </label>
       </div>
     </div>
   </fieldset>
 
-  <button type="button" @click="count++">count is: {{ count }}</button>
+  <button type="button" @click="genPassword(passwordLength)">
+    count is: {{ count }}
+  </button>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent } from "vue";
+type HTMLElementEvent<T extends HTMLElement> = Event & {
+  target: T;
+  // probably you might want to add the currentTarget as well
+  // currentTarget: T;
+};
 export default defineComponent({
   name: "Password",
   props: {
@@ -54,14 +62,36 @@ export default defineComponent({
     },
   },
   data: () => {
-    return {
+    const initData = {
       minLength: 8,
       passwordLength: 8,
       maxLength: 100,
+      pw: "",
+      preferences: {
+        symbols: true,
+      },
     };
+    return initData;
   },
   methods: {
+    pwLengthHandler: (event: HTMLElementEvent<HTMLInputElement>) => {
+      console.log(event.target.value);
+    },
     changeSetting: () => {},
+    genPassword: (length: number) => {
+      let charset =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let retVal = "";
+      for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+      }
+      console.log(retVal);
+
+      return retVal;
+    },
+    setPreference: (preference: string, value: unknown) => {
+      console.log(preference, value);
+    },
   },
   setup: () => {
     const count = ref(0);
