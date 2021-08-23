@@ -19,7 +19,7 @@
             min="0"
             max="100"
             style="--track-fill: 30%"
-            @change="password = genPassword(passwordLength)"
+            @change="password = genPassword(passwordLength, true)"
           />
           <span>{{ maxLength }}</span>
         </div>
@@ -42,7 +42,7 @@
     </div>
   </fieldset>
 
-  <button type="button" @click="password = genPassword(passwordLength)">
+  <button type="button" @click="password = genPassword(passwordLength, true)">
     count is: {{ count }}
   </button>
 </template>
@@ -79,9 +79,10 @@ export default defineComponent({
       console.log(event.target.value);
     },
     changeSetting: () => {},
-    genPassword: (length: number) => {
+    genPassword: (length: number, incSymbols = false) => {
       let charset =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      incSymbols ? charset = charset += '!@€£#$$%^&*()_+{}[];,.' : charset = charset;
       let retVal = "";
       for (var i = 0, n = charset.length; i < length; ++i) {
         retVal += charset.charAt(Math.floor(Math.random() * n));
