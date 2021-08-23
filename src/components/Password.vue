@@ -1,5 +1,6 @@
 <template>
   <fieldset>
+    <p>{{password}}</p>
     <div class="fieldset-item">
       <div class="input-stack">
         <label for="password-length" id="password-length" aria-hidden="true">
@@ -18,7 +19,7 @@
             min="0"
             max="100"
             style="--track-fill: 30%"
-            @change="pwLengthHandler"
+            @change="password = genPassword(passwordLength)"
           />
           <span>{{ maxLength }}</span>
         </div>
@@ -41,7 +42,7 @@
     </div>
   </fieldset>
 
-  <button type="button" @click="genPassword(passwordLength)">
+  <button type="button" @click="password = genPassword(passwordLength)">
     count is: {{ count }}
   </button>
 </template>
@@ -66,7 +67,7 @@ export default defineComponent({
       minLength: 8,
       passwordLength: 8,
       maxLength: 100,
-      pw: "",
+      password: "",
       preferences: {
         symbols: true,
       },
@@ -85,8 +86,6 @@ export default defineComponent({
       for (var i = 0, n = charset.length; i < length; ++i) {
         retVal += charset.charAt(Math.floor(Math.random() * n));
       }
-      console.log(retVal);
-
       return retVal;
     },
     setPreference: (preference: string, value: unknown) => {
