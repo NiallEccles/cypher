@@ -1,6 +1,6 @@
 <template>
   <fieldset>
-    <p>{{password}}</p>
+    <p>{{ password }}</p>
     <div class="fieldset-item">
       <div class="input-stack">
         <label for="password-length" id="password-length" aria-hidden="true">
@@ -19,7 +19,7 @@
             min="0"
             max="100"
             style="--track-fill: 30%"
-            @change="password = genPassword(passwordLength, true)"
+            @change="password = genPassword(passwordLength)"
           />
           <span>{{ maxLength }}</span>
         </div>
@@ -79,21 +79,29 @@ export default defineComponent({
       console.log(event.target.value);
     },
     changeSetting: () => {},
-    genPassword: (length: number, incSymbols = false) => {
+    genPassword: (length: number) => {
       let charset =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      incSymbols ? charset = charset += '!@€£#$$%^&*()_+{}[];,.' : charset = charset;
+      let chars = charset;
+      if (localStorage.getItem("pref-symbols") === 'true') {
+        chars += "!@€£#$$%^&*()_+{}[];,.";
+      }
+      console.log(chars);
+      
       let retVal = "";
-      for (var i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
+      for (var i = 0, n = chars.length; i < length; ++i) {
+        retVal += chars.charAt(Math.floor(Math.random() * n));
       }
       return retVal;
     },
-    setPreference: (preference: string, value: unknown) => {
+    setPreference: (preference: string, value: string | number) => {
       console.log(preference, value);
+      localStorage.setItem(preference, value.toString());
     },
   },
   setup: () => {
+    console.log(localStorage.getItem("pref-symbols"));
+
     const count = ref(0);
     return { count };
   },
