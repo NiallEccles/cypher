@@ -3,21 +3,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Password from './components/Password.vue'
+import { defineComponent } from "vue";
+import Password from "./components/Password.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
-    Password
-  }
-})
+    Password,
+  },
+});
 </script>
 
 <style>
 @font-face {
   font-family: PlusJakartaSans-Medium;
-  src: url('./assets/fonts/PlusJakartaSans-Medium.woff2');
+  src: url("./assets/fonts/PlusJakartaSans-Medium.woff2");
+}
+body {
+  color: #0bcf3e;
+  background: #fafbfa;
+  margin: 0;
+  padding: 0;
 }
 #app {
   font-family: PlusJakartaSans-Medium;
@@ -25,6 +31,5 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
