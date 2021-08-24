@@ -175,6 +175,7 @@ export default defineComponent({
   color: #ffeffe;
   height: 100%;
   font-family: PlusJakartaSans-Medium;
+  border-radius: 0.5em;
 }
 
 .password-length {
