@@ -95,7 +95,6 @@ export default defineComponent({
       return retVal;
     },
     setPreference: (preference: string, value: string | number) => {
-      console.log(preference, value);
       localStorage.setItem(preference, value.toString());
     },
   },
