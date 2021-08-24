@@ -2,52 +2,54 @@
   <div class="banner">
     <h1>Cypher</h1>
   </div>
-  <fieldset>
-    <p>{{ password }}</p>
-    <div class="fieldset-item">
-      <div class="input-stack">
-        <label for="password-length" id="password-length" aria-hidden="true">
-          Length
-        </label>
-        <br />
-        <span>{{ passwordLength }}</span>
-        <!-- <input type="text" v-model="passwordLength" /> -->
-        <div class="password-length">
-          <span>{{ minLength }}</span>
-          <input
-            v-model="passwordLength"
-            name="password-length"
-            aria-labelledby="password-length"
-            type="range"
-            min="0"
-            max="100"
-            style="--track-fill: 30%"
-            @change="password = genPassword(passwordLength)"
-          />
-          <span>{{ maxLength }}</span>
+  <div class="container">
+    <fieldset>
+      <p>{{ password }}</p>
+      <div class="fieldset-item">
+        <div class="input-stack">
+          <label for="password-length" id="password-length" aria-hidden="true">
+            Length
+          </label>
+          <br />
+          <span>{{ passwordLength }}</span>
+          <!-- <input type="text" v-model="passwordLength" /> -->
+          <div class="password-length">
+            <span>{{ minLength }}</span>
+            <input
+              v-model="passwordLength"
+              name="password-length"
+              aria-labelledby="password-length"
+              type="range"
+              min="0"
+              max="100"
+              style="--track-fill: 30%"
+              @change="password = genPassword(passwordLength)"
+            />
+            <span>{{ maxLength }}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="fieldset-item">
-      <input
-        type="checkbox"
-        checked
-        id="pref-symbols"
-        name="pref-symbols"
-        v-model="preferences.symbols"
-        @click="setPreference('pref-symbols', $event.target.checked)"
-      />
-      <div class="input-stack">
-        <label for="pref-symbols">
-          <h3>Include Symbols</h3>
-        </label>
+      <div class="fieldset-item">
+        <input
+          type="checkbox"
+          checked
+          id="pref-symbols"
+          name="pref-symbols"
+          v-model="preferences.symbols"
+          @click="setPreference('pref-symbols', $event.target.checked)"
+        />
+        <div class="input-stack">
+          <label for="pref-symbols">
+            <h3>Include Symbols</h3>
+          </label>
+        </div>
       </div>
-    </div>
-  </fieldset>
+    </fieldset>
 
-  <button type="button" @click="password = genPassword(passwordLength, true)">
-    count is: {{ count }}
-  </button>
+    <button type="button" @click="password = genPassword(passwordLength, true)">
+      count is: {{ count }}
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -129,18 +131,41 @@ export default defineComponent({
 /* #0BCF3E */
 /* #095C23 */
 
-.banner{
-  padding: 1em;
-  background-image: linear-gradient(25deg, #026544, #158e63, #28ba84, #3be8a7);
+.container {
+  max-width: 500px;
+  margin: auto;
 }
 
-h1{
+.password-length {
+  padding: 1em 0.5em;
+  display: flex;
+  background: #075d23;
+  justify-content: space-between;
+  color: #ffeffe;
+  border-radius: 0.5em;
+}
+
+.password-length input {
+  flex: 1;
+  margin: 0 2em;
+}
+
+.input-stack {
+}
+
+.banner {
+  padding: 1em;
+  background-image: linear-gradient(25deg, #026544, #158e63, #28ba84, #3be8a7);
+  text-align: center;
+}
+
+h1 {
   margin: 0;
 }
 
 h1,
 a {
-  color: #FFEFFE;
+  color: #ffeffe;
   /* -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
 }
@@ -152,7 +177,7 @@ fieldset {
 label {
   margin: 0 0.5em;
   font-weight: bold;
-  color: #095C23;
+  color: #095c23;
 }
 
 code {
