@@ -37,7 +37,10 @@
           </div>
         </div>
       </div>
-      <div class="fieldset-item">
+      <div class="fieldset-item preference">
+        <div class="input-stack">
+          <label for="pref-symbols"> Include Symbols </label>
+        </div>
         <input
           type="checkbox"
           checked
@@ -46,17 +49,8 @@
           v-model="preferences.symbols"
           @click="setPreference('pref-symbols', $event.target.checked)"
         />
-        <div class="input-stack">
-          <label for="pref-symbols">
-            <h3>Include Symbols</h3>
-          </label>
-        </div>
       </div>
     </fieldset>
-
-    <button type="button" @click="password = genPassword(passwordLength, true)">
-      count is: {{ count }}
-    </button>
   </div>
 </template>
 
@@ -192,7 +186,11 @@ export default defineComponent({
   margin: 0 1em;
 }
 
-.input-stack {
+.preference {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em 0 0 0;
 }
 
 .banner {
