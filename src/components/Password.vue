@@ -4,14 +4,22 @@
   </div>
   <div class="container">
     <fieldset>
-      <p>{{ password }}</p>
+      <div class="password-display">
+        <input type="text" v-model="password" />
+        <button @click="copyPassword(password)">Copy</button>
+      </div>
       <div class="fieldset-item">
         <div class="input-stack">
-          <label for="password-length" id="password-length" aria-hidden="true">
-            Length
-          </label>
-          <br />
-          <span>{{ passwordLength }}</span>
+          <div class="password-length-display">
+            <label
+              for="password-length"
+              id="password-length"
+              aria-hidden="true"
+            >
+              Length
+            </label>
+            <span>{{ passwordLength }}</span>
+          </div>
           <!-- <input type="text" v-model="passwordLength" /> -->
           <div class="password-length">
             <span>{{ minLength }}</span>
@@ -136,8 +144,41 @@ export default defineComponent({
   margin: auto;
 }
 
+.password-length-display {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0;
+}
+.password-display {
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-display input {
+  width: 100%;
+  height: 2em;
+  font-size: 2em;
+  padding: 0;
+  margin: 0 0.25em 0 0;
+  font-family: monospace;
+  background-color: #eee;
+  border: none;
+  color: #304455;
+}
+
+.password-display button {
+  background: #075d23;
+  padding: 1em;
+  border: none;
+  color: #ffeffe;
+  height: 100%;
+  font-family: PlusJakartaSans-Medium;
+}
+
 .password-length {
-  padding: 1em 0.5em;
+  padding: 1em;
   display: flex;
   background: #075d23;
   justify-content: space-between;
@@ -147,7 +188,7 @@ export default defineComponent({
 
 .password-length input {
   flex: 1;
-  margin: 0 2em;
+  margin: 0 1em;
 }
 
 .input-stack {
@@ -181,6 +222,7 @@ label {
 }
 
 code {
+  font-size: 2em;
   background-color: #eee;
   padding: 2px 4px;
   border-radius: 4px;
