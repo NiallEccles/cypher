@@ -20,7 +20,7 @@ export default defineComponent({
   src: url("./assets/fonts/PlusJakartaSans-Medium.woff2");
 }
 body {
-  color: #0bcf3e;
+  color: #095C23;
   background: #fafbfa;
   margin: 0;
   padding: 0;
@@ -29,7 +29,6 @@ body {
   font-family: PlusJakartaSans-Medium;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #095C23;
 }
 </style>
