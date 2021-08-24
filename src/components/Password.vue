@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, reactive } from "vue";
 type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T;
   // probably you might want to add the currentTarget as well
@@ -63,16 +63,17 @@ export default defineComponent({
     },
   },
   data: () => {
-    const initData = {
+    return {
       minLength: 8,
       passwordLength: 8,
       maxLength: 100,
       password: "",
       preferences: {
-        symbols: true,
+        symbols: localStorage.getItem("pref-symbols")
+          ? localStorage.getItem("pref-symbols")
+          : false,
       },
     };
-    return initData;
   },
   methods: {
     pwLengthHandler: (event: HTMLElementEvent<HTMLInputElement>) => {
@@ -83,11 +84,10 @@ export default defineComponent({
       let charset =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       let chars = charset;
-      if (localStorage.getItem("pref-symbols") === 'true') {
+      if (localStorage.getItem("pref-symbols") === "true") {
         chars += "!@€£#$$%^&*()_+{}[];,.";
       }
-      console.log(chars);
-      
+
       let retVal = "";
       for (var i = 0, n = chars.length; i < length; ++i) {
         retVal += chars.charAt(Math.floor(Math.random() * n));
@@ -100,8 +100,6 @@ export default defineComponent({
     },
   },
   setup: () => {
-    console.log(localStorage.getItem("pref-symbols"));
-
     const count = ref(0);
     return { count };
   },
