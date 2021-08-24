@@ -1,4 +1,7 @@
 <template>
+  <div class="banner">
+    <h1>Cypher</h1>
+  </div>
   <fieldset>
     <p>{{ password }}</p>
     <div class="fieldset-item">
@@ -123,13 +126,33 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* #0BCF3E */
+/* #095C23 */
+
+.banner{
+  padding: 1em;
+  background-image: linear-gradient(25deg, #026544, #158e63, #28ba84, #3be8a7);
+}
+
+h1{
+  margin: 0;
+}
+
+h1,
 a {
-  color: #42b983;
+  color: #FFEFFE;
+  /* -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}
+
+fieldset {
+  border: none;
 }
 
 label {
   margin: 0 0.5em;
   font-weight: bold;
+  color: #095C23;
 }
 
 code {
