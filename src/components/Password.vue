@@ -38,17 +38,32 @@
         </div>
       </div>
       <div class="fieldset-item preference">
-        <div class="input-stack">
-          <label for="pref-symbols"> Include Symbols </label>
+        <div class="preference-row">
+          <div class="input-stack">
+            <label for="pref-symbols"> Include Symbols </label>
+          </div>
+          <input
+            type="checkbox"
+            checked
+            id="pref-symbols"
+            name="pref-symbols"
+            v-model="preferences.symbols"
+            @click="setPreference('pref-symbols', $event.target.checked)"
+          />
         </div>
-        <input
-          type="checkbox"
-          checked
-          id="pref-symbols"
-          name="pref-symbols"
-          v-model="preferences.symbols"
-          @click="setPreference('pref-symbols', $event.target.checked)"
-        />
+        <div class="preference-row">
+          <div class="input-stack">
+            <label for="pref-symbols"> Include Hyphens </label>
+          </div>
+          <input
+            type="checkbox"
+            checked
+            id="pref-hyphens"
+            name="pref-hyphens"
+            v-model="preferences.hyphens"
+            @click="setPreference('pref-hyphens', $event.target.checked)"
+          />
+        </div>
       </div>
     </fieldset>
   </div>
@@ -79,6 +94,9 @@ export default defineComponent({
         symbols: localStorage.getItem("pref-symbols")
           ? localStorage.getItem("pref-symbols")
           : false,
+        hyphens: localStorage.getItem("pref-hyphens")
+          ? localStorage.getItem("pref-hyphens")
+          : false,
       },
     };
   },
@@ -94,12 +112,18 @@ export default defineComponent({
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       let chars = charset;
       if (localStorage.getItem("pref-symbols") === "true") {
-        chars += "!@€£#$$%^&*()_+{}[];,.";
+        chars += "!@€£#$%^&*";
       }
-
       let retVal = "";
       for (var i = 0, n = chars.length; i < length; ++i) {
         retVal += chars.charAt(Math.floor(Math.random() * n));
+      }
+      if (localStorage.getItem("pref-hyphens") === "true") {
+        retVal = retVal
+          .match(/.{1,8}/g)
+          .concat()
+          .toString()
+          .replaceAll(",", "-");
       }
       return retVal;
     },
@@ -194,6 +218,13 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   margin: 1em 0 0 0;
+  flex-direction: column;
+}
+
+.preference-row{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .banner {
