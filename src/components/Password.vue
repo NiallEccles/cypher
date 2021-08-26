@@ -5,8 +5,8 @@
   <div class="container">
     <fieldset>
       <div class="password-display">
-        <input type="text" v-model="password" />
-        <button @click="copyPassword(password)">Copy</button>
+        <input @click="highlightInput($event)" type="text" v-model="password" />
+        <!-- <button v-clipboard="() => password">Copy</button> -->
       </div>
       <div class="fieldset-item">
         <div class="input-stack">
@@ -86,7 +86,9 @@ export default defineComponent({
     pwLengthHandler: (event: HTMLElementEvent<HTMLInputElement>) => {
       console.log(event.target.value);
     },
-    changeSetting: () => {},
+    highlightInput: ($event) => {
+      $event.srcElement.select();
+    },
     genPassword: (length: number) => {
       let charset =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -170,6 +172,7 @@ export default defineComponent({
   height: 100%;
   font-family: PlusJakartaSans-Medium;
   border-radius: 0.5em;
+  cursor: pointer;
 }
 
 .password-length {
@@ -197,6 +200,7 @@ export default defineComponent({
   padding: 1em;
   background-image: linear-gradient(25deg, #026544, #158e63, #28ba84, #3be8a7);
   text-align: center;
+  margin-bottom: 2em;
 }
 
 h1 {
