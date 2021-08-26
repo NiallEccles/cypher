@@ -28,7 +28,7 @@
               name="password-length"
               aria-labelledby="password-length"
               type="range"
-              min="0"
+              min="8"
               max="100"
               style="--track-fill: 30%"
               @change="password = genPassword(passwordLength)"
