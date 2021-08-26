@@ -156,7 +156,7 @@ export default defineComponent({
   width: 100%;
   height: 2em;
   font-size: 2em;
-  padding: 0;
+  padding: 0 0.5em;
   margin: 0 0.25em 0 0;
   font-family: monospace;
   background-color: #eee;
